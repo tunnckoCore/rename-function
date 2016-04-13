@@ -1,0 +1,53 @@
+{
+  "name": "rename-function",
+  "version": "0.1.0",
+  "description": "Rename a given function. Tries to be cross-platform and guaranteed. Useful when you want to preserve name of bound function.",
+  "repository": "tunnckoCore/rename-function",
+  "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
+  "precommit.silent": true,
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "standard && node test.js"
+  },
+  "dependencies": {
+    "define-property": "^0.2.5",
+    "get-fn-name": "^1.0.0",
+    "lazy-cache": "^1.0.3",
+    "namify": "^0.1.3"
+  },
+  "devDependencies": {
+    "assertit": "^0.1.0",
+    "clean-tostring": "^1.0.0",
+    "pre-commit": "*"
+  },
+  "files": [
+    "index.js",
+    "utils.js"
+  ],
+  "keywords": [
+    "rename-function"
+  ],
+  "verb": {
+    "run": true,
+    "toc": false,
+    "layout": "empty",
+    "tasks": [
+      "readme"
+    ],
+    "related": {
+      "list": [
+        "parse-function",
+        "function-arguments",
+        "bind-context",
+        "smart-bind",
+        "is-bound-function",
+        "is-async-function",
+        "is-callback-function"
+      ]
+    },
+    "lint": {
+      "reflinks": true
+    }
+  }
+}
