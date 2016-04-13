@@ -29,7 +29,9 @@ var utils = require('./utils')
  * @param  {Function} `fn`
  * @param  {String}   `name`
  * @return {Function}
+ * @api public
  */
+
 module.exports = function renameFunction (fn, name) {
   if (typeof fn !== 'function') {
     throw new TypeError('rename-function: expect `fn` be function')

@@ -16,6 +16,27 @@ npm i rename-function --save
 const renameFunction = require('rename-function')
 ```
 
+### [renameFunction](index.js#L35)
+> Rename given `fn` with `name`. If given `name` is same as old the `fn` is just returned earlier, nothing more is done.
+
+**Params**
+
+* `fn` **{Function}**    
+* `name` **{String}**    
+* `returns` **{Function}**  
+
+**Example**
+
+```js
+var rename = require('rename-function')
+ver getName = require('get-fn-name')
+
+var fn = rename(fixture () {}, 'abc')
+
+console.log(getName(fn)) // => 'abc'
+console.log(fn.name) // => 'abc'
+```
+
 ## Related
 * [bind-context](https://www.npmjs.com/package/bind-context): Bind context to a function and preserves her name. Can be used… [more](https://www.npmjs.com/package/bind-context) | [homepage](https://github.com/tunnckocore/bind-context)
 * [function-arguments](https://www.npmjs.com/package/function-arguments): Get arguments of a function, useful for and used in dependency injectors.… [more](https://www.npmjs.com/package/function-arguments) | [homepage](https://github.com/tunnckocore/function-arguments)
