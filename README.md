@@ -17,7 +17,7 @@ const renameFunction = require('rename-function')
 ```
 
 ### [renameFunction](index.js#L35)
-> Rename given `fn` with `name`. If given `name` is same as old the `fn` is just returned earlier, nothing more is done.
+> Rename given `fn` with `name`. If given `name` is same as old, then the `fn` is just returned earlier, nothing more is done.
 
 **Params**
 

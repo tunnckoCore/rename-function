@@ -11,8 +11,8 @@ var format = require('util').format
 var utils = require('./utils')
 
 /**
- * > Rename given `fn` with `name`. If given `name` is same as old
- * the `fn` is just returned earlier, nothing more is done.
+ * > Rename given `fn` with `name`. If given `name` is same as old,
+ * then the `fn` is just returned earlier, nothing more is done.
  *
  * **Example**
  *
@@ -36,9 +36,7 @@ module.exports = function renameFunction (fn, name) {
   if (typeof fn !== 'function') {
     throw new TypeError('rename-function: expect `fn` be function')
   }
-  if (typeof name !== 'string') {
-    return fn
-  }
+  if (typeof name !== 'string') return fn
   if (name === utils.getFnName(fn)) return fn
 
   name = utils.namify(name)
