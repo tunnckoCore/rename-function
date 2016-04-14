@@ -9,6 +9,42 @@
 npm i rename-function --save
 ```
 
+## How it works? Strategy. Name priority.
+
+There's a couple of things that you **should be aware off and make your attention**, few scenarios - you can do few things with package like this - rename function, binding function with context and both together.
+
+- Just rename given `fn` to have `name` instead of original name.
+- Throw `TypeError` if given `fn` not a function.
+- If only `fn` is given, it is returned without modifications - nothing done.
+- If `fn` is given and falsey `name` (meaning non-string) - just returns the `fn` - nothing done.
+- If `fn` is given and `name` is same as original name - just returns the `fn` - nothing done.
+- If `fn`, `name` and `ctx` is given, and `name` is as original - returns function with `ctx` and same name.
+- If `fn` and `ctx` is given, then function remains the same - only `ctx` is bound.
+
+Meaning, this package try to follow native behaviours. Because you can't do such thing
+
+```js
+function zooparks () { return this }
+
+var boundOne = renameFunction(zooparks, {foo: 'one'})
+var boundTwo = renameFunction(boundOne, {foo: 'two'})
+var boundZzz = renameFunction(boundTwo, {foo: 'zzz'})
+
+console.log(boundZzz()) // => {foo: 'one'}
+```
+
+and expect `boundZzz()` to return `{foo: 'zzz'}`, it would be `{foo: 'one'}` always. It's still a bit strange even to me, because of use the thing that I call "smart binding" with which I tried to solve this problem and will continue. Kinda strange, when debugging it seems it shows expected results. But in other hand that's the native behaviour, see this one:
+
+```js
+function zooparks () { return this }
+
+var boundOne = zooparks.bind({foo: 'one'})
+var boundTwo = boundOne.bind({foo: 'two'})
+var boundZzz = boundTwo.bind({foo: 'zzz'})
+
+console.log(boundZzz()) // => {foo: 'one'}
+```
+
 ## Usage
 > For more use-cases see the [tests](./test.js)
 
@@ -57,6 +93,7 @@ But before doing anything, please read the [CONTRIBUTING.md](./CONTRIBUTING.md) 
 
 [define-property]: https://github.com/jonschlinkert/define-property
 [get-fn-name]: https://github.com/tunnckocore/get-fn-name
+[is-extendable]: https://github.com/jonschlinkert/is-extendable
 [lazy-cache]: https://github.com/jonschlinkert/lazy-cache
 [namify]: https://github.com/jonschlinkert/namify
 
