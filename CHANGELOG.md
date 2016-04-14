@@ -1,5 +1,10 @@
 
 
+## 1.0.3 - 2016-04-14
+- Release v1.0.3 / npm@v1.0.3
+- refactor
+- add more tests
+
 ## 1.0.2 - 2016-04-14
 - Release v1.0.2 / npm@v1.0.2
 - fix to work correctly for anonymous function
