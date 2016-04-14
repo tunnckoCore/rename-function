@@ -9,43 +9,12 @@
 
 'use strict'
 
+var inspect = require('util').inspect
 var test = require('assertit')
 var renameFunction = require('./index')
 var getName = require('get-fn-name')
 var toString = require('clean-tostring')
 var isIstanbul = process.env.running_under_istanbul
-
-// console.log(named())
-// console.log(renameFunction(named)())
-// console.log(renameFunction(named, '')()) // rename to ''
-// console.log(renameFunction(named, 'foo')()) // rename to 'foo'
-
-// console.log(renameFunction(named, 0)()) // return fn
-// console.log(renameFunction(named, 123)()) // return fn
-// console.log(renameFunction(named, null)()) // return fn
-// console.log(renameFunction(named, false)()) // return fn
-
-// console.log('==== named:')
-// console.log('ctx', renameFunction(named, {foo: 'bar'})()) // bind context, preserve name
-// console.log('ctx', renameFunction(named, false, {foo: 'bar'})()) // bind context, preserve name
-// console.log(renameFunction(named, false, 123)()) // return fn
-// console.log('ctx,rename:', renameFunction(named, '', {foo: 'bar'})()) // bind context, rename to ''
-// console.log('ctx,rename:', renameFunction(named, 'str', {foo: 'bar'})()) // bind context, rename to 'str'
-// console.log('ctx,rename:', renameFunction(named, 'class', {foo: 'bar'})()) // bind context, rename to '_class'
-// console.log('ctx,rename:', renameFunction(named, 'named', {foo: 'bar'})()) // bind context, rename to 'named'
-
-// console.log('==== anonymous:')
-// console.log('ctx', renameFunction(function () { return this }, {bar: 'qux'})()) // bind context, preserve ''
-// console.log('ctx', renameFunction(function () { return this }, false, {bar: 'qux'})()) // bind context, preserve ''
-// console.log(renameFunction(function () { return this }, false, 123)()) // return fn
-// console.log('ctx:', renameFunction(function () { return this }, '', {bar: 'qux'})()) // bind context, preserve ''
-// console.log('ctx,rename:', renameFunction(function () { return this }, 'str', {bar: 'qux'})()) // bind context, rename to 'str'
-// console.log('ctx,rename:', renameFunction(function () { return this }, 'class', {bar: 'qux'})()) // bind context, rename to '_class'
-// console.log('ctx,rename:', renameFunction(function () { return this }, 'anonymous', {bar: 'qux'})()) // bind context, rename to 'anonymous'
-
-// renameFunction(named, ctx) // preserve name, pass context only, continue
-// renameFunction(named, null, ctx) // preserve name, pass context only, continue
-// renameFunction(named, false, ctx) // preserve name, pass context only, continue
 
 test('should throw TypeError if `fn` not a function', function (done) {
   function fixture () {
@@ -131,5 +100,23 @@ test('should return earlier without modifications if `name` is same as original'
   test.strictEqual(actual, expected)
   test.strictEqual(fn.name, 'zzz')
   test.strictEqual(getName(fn), 'zzz')
+  done()
+})
+
+test('should respect first context when nested binds (same as native bind behavior)', function (done) {
+  function zoopark () { return this.foo }
+
+  var boundOne = renameFunction(zoopark, {foo: 'one'})
+  var boundTwo = renameFunction(boundOne, {foo: 'two'})
+  var boundZzz = renameFunction(boundTwo, {foo: 'zzz'})
+
+  test.strictEqual(boundOne(), 'one')
+  test.strictEqual(boundTwo(), 'one')
+  test.strictEqual(boundZzz(), 'one')
+
+  test.strictEqual(inspect(zoopark), inspect(boundOne))
+  test.strictEqual(inspect(boundOne), inspect(boundTwo))
+  test.strictEqual(inspect(boundTwo), inspect(boundZzz))
+  test.strictEqual(inspect(zoopark), inspect(boundZzz))
   done()
 })
