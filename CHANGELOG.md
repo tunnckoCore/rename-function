@@ -1,5 +1,10 @@
 
 
+## 1.0.2 - 2016-04-14
+- Release v1.0.2 / npm@v1.0.2
+- fix to work correctly for anonymous function
+- allow passing context to anonymous function (kinda strange, lol)
+
 ## 1.0.1 - 2016-04-14
 - Release v1.0.1 / npm@v1.0.1
 - update description and docs
