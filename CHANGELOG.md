@@ -1,5 +1,11 @@
 
 
+## 1.0.4 - 2016-04-14
+- Release v1.0.4 / npm@v1.0.4
+- update docs
+- add "how it works" section
+- ensure native bind behavior
+
 ## 1.0.3 - 2016-04-14
 - Release v1.0.3 / npm@v1.0.3
 - refactor
