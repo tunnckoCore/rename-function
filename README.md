@@ -1,6 +1,6 @@
 # [rename-function][author-www-url] [![npmjs.com][npmjs-img]][npmjs-url] [![The MIT License][license-img]][license-url] 
 
-> Rename a given function. Tries to be cross-platform and guaranteed. Useful when you want to preserve name of bound function.
+> Rename a given function. Tries to be cross-platform and guaranteed. Useful when you want to preserve name of bound function. In bonus, allows passing context to the renamed function.
 
 [![code climate][codeclimate-img]][codeclimate-url] [![standard code style][standard-img]][standard-url] [![travis build status][travis-img]][travis-url] [![coverage status][coveralls-img]][coveralls-url] [![dependency status][david-img]][david-url]
 
@@ -16,13 +16,14 @@ npm i rename-function --save
 const renameFunction = require('rename-function')
 ```
 
-### [renameFunction](index.js#L35)
+### [renameFunction](index.js#L36)
 > Rename given `fn` with `name`. If given `name` is same as old, then the `fn` is just returned earlier, nothing more is done.
 
 **Params**
 
 * `fn` **{Function}**    
 * `name` **{String}**    
+* `ctx` **{Object}**    
 * `returns` **{Function}**  
 
 **Example**
