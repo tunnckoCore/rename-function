@@ -37,10 +37,10 @@ module.exports = function renameFunction (fn, name, ctx) {
   if (typeof fn !== 'function') {
     throw new TypeError('rename-function: expect `fn` be function')
   }
-  if (typeof name !== 'string') return fn
+  name = typeof name === 'string' ? utils.namify(name) : false
   if (name === utils.getFnName(fn)) return fn
+  name = name || ''
 
-  name = utils.namify(name)
   var str = format('return function %s() { return fn.apply(ctx || this, arguments) }', name)
   var func = (new Function('fn', 'ctx', str))(fn, ctx || this) // eslint-disable-line no-new-func
 

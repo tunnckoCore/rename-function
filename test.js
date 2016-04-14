@@ -25,12 +25,6 @@ test('should throw TypeError if `fn` not a function', function (done) {
   done()
 })
 
-test('should return the function if `name` not a string', function (done) {
-  var fn = renameFunction(function fixture () {})
-  test.strictEqual(getName(fn), 'fixture')
-  done()
-})
-
 test('should namify `name` if reserved word', function (done) {
   function foo () {}
   var fn = renameFunction(foo, 'class')
@@ -67,5 +61,18 @@ test('should be able to pass context by bind/call/apply renameFunction', functio
 
   test.strictEqual(fn(), 'abc')
   test.strictEqual(getName(fn), 'cat')
+  done()
+})
+
+test('should work for anonymous function (remains unmodified)', function (done) {
+  var anonymous = renameFunction(function () { return 1 })
+  test.strictEqual(anonymous.name, '')
+  test.strictEqual(getName(anonymous), null)
+  done()
+})
+
+test('should work to pass context to anonymous function', function (done) {
+  var anonymous = renameFunction(function () { return this.x }, null, {x: 'y'})
+  test.strictEqual(anonymous(), 'y')
   done()
 })
