@@ -18,18 +18,24 @@ var utils = require('./utils')
  *
  * ```js
  * var rename = require('rename-function')
- * ver getName = require('get-fn-name')
+ * var getName = require('get-fn-name')
  *
  * var fn = rename(fixture () {}, 'abc')
  *
  * console.log(getName(fn)) // => 'abc'
  * console.log(fn.name) // => 'abc'
+ *
+ * // passing context
+ * var bound = rename(fixture foo () { return this }, 'zoo', {a: 'b'})
+ * console.log(bound()) // => {a: 'b'}
+ * console.log(bound.name) // => 'zoo'
+ * console.log(getName(bound)) // => 'zoo'
  * ```
  *
  * @param  {Function} `fn`
- * @param  {String}   `name`
- * @param  {Object}   `ctx`
- * @return {Function}
+ * @param  {String|Object} `name`
+ * @param  {Object} `ctx`
+ * @return {Function} or throws `TypeError` if `fn` not a function
  * @api public
  */
 

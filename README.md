@@ -52,26 +52,32 @@ console.log(boundZzz()) // => {foo: 'one'}
 const renameFunction = require('rename-function')
 ```
 
-### [renameFunction](index.js#L36)
+### [renameFunction](index.js#L42)
 > Rename given `fn` with `name`. If given `name` is same as old, then the `fn` is just returned earlier, nothing more is done.
 
 **Params**
 
 * `fn` **{Function}**    
-* `name` **{String}**    
+* `name` **{String|Object}**    
 * `ctx` **{Object}**    
-* `returns` **{Function}**  
+* `returns` **{Function}**: or throws `TypeError` if `fn` not a function  
 
 **Example**
 
 ```js
 var rename = require('rename-function')
-ver getName = require('get-fn-name')
+var getName = require('get-fn-name')
 
 var fn = rename(fixture () {}, 'abc')
 
 console.log(getName(fn)) // => 'abc'
 console.log(fn.name) // => 'abc'
+
+// passing context
+var bound = rename(fixture foo () { return this }, 'zoo', {a: 'b'})
+console.log(bound()) // => {a: 'b'}
+console.log(bound.name) // => 'zoo'
+console.log(getName(bound)) // => 'zoo'
 ```
 
 ## Related
