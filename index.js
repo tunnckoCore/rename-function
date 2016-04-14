@@ -28,11 +28,12 @@ var utils = require('./utils')
  *
  * @param  {Function} `fn`
  * @param  {String}   `name`
+ * @param  {Object}   `ctx`
  * @return {Function}
  * @api public
  */
 
-module.exports = function renameFunction (fn, name) {
+module.exports = function renameFunction (fn, name, ctx) {
   if (typeof fn !== 'function') {
     throw new TypeError('rename-function: expect `fn` be function')
   }
@@ -40,8 +41,8 @@ module.exports = function renameFunction (fn, name) {
   if (name === utils.getFnName(fn)) return fn
 
   name = utils.namify(name)
-  var str = format('return function %s(){return fn.apply(this,arguments)}', name)
-  var func = (new Function('fn', str))(fn) // eslint-disable-line no-new-func
+  var str = format('return function %s() { return fn.apply(ctx || this, arguments) }', name)
+  var func = (new Function('fn', 'ctx', str))(fn, ctx || this) // eslint-disable-line no-new-func
 
   utils.defineProperty(func, 'toString', function toString () {
     var named = format('function %s(', name)

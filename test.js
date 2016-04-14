@@ -52,3 +52,20 @@ test('should have correct, actual and updated result of `.toString`', function (
   }
   done()
 })
+
+test('should allow optionally passing a context as third argument', function (done) {
+  function qux () { return this.foo }
+  var actual = renameFunction(qux, 'abc', {foo: 'bar'})
+
+  test.strictEqual(actual(), 'bar')
+  done()
+})
+
+test('should be able to pass context by bind/call/apply renameFunction', function (done) {
+  function fox () { return this.cat }
+  var fn = renameFunction.call({cat: 'abc'}, fox, 'cat')
+
+  test.strictEqual(fn(), 'abc')
+  test.strictEqual(getName(fn), 'cat')
+  done()
+})
