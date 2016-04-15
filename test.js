@@ -120,3 +120,13 @@ test('should respect first context when nested binds (same as native bind behavi
   test.strictEqual(inspect(zoopark), inspect(boundZzz))
   done()
 })
+
+test('should not have problems to rename bound functions and use the bounded context', function (done) {
+  function zoopark () { return this.foo }
+  var bound = renameFunction(zoopark.bind({foo: 'bar'}), 'qux', {foo: 'zzz'})
+
+  test.strictEqual(bound.name, 'qux')
+  test.strictEqual(getName(bound), 'qux')
+  test.strictEqual(bound(), 'bar')
+  done()
+})
