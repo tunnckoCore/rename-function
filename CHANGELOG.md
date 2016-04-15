@@ -1,5 +1,10 @@
 
 
+## 1.0.5 - 2016-04-15
+- Release v1.0.5 / npm@v1.0.5
+- add test to ensure the fix for #2
+- fix #2, always create new function and return it
+
 ## 1.0.4 - 2016-04-14
 - Release v1.0.4 / npm@v1.0.4
 - update docs

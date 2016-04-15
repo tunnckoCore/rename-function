@@ -1,6 +1,6 @@
 {
   "name": "rename-function",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Rename a given function. Tries to be cross-platform and guaranteed. Useful when you want to preserve name of bound function. In bonus, allows passing context to the renamed function.",
   "repository": "tunnckoCore/rename-function",
   "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
